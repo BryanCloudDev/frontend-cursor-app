@@ -4,60 +4,87 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Food Planner 🍳</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="./assets/styles/style.css" />
 </head>
 <body>
   <main id="app">
     <header>
+      <div class="language-selector">
+        <button id="lang-es" class="lang-btn active" data-lang="es">Español</button>
+        <button id="lang-en" class="lang-btn" data-lang="en">English</button>
+      </div>
       <h1>🥗 AI Food Planner</h1>
-      <p>Planifica tus comidas según lo que tienes en casa.</p>
+      <p data-i18n="header-desc">Planifica tus comidas según lo que tienes en casa.</p>
     </header>
 
     <section id="inputs">
       <div class="card">
-        <h2>🧺 Ingredientes disponibles</h2>
-        <textarea id="ingredientes" placeholder="Ejemplo: arroz, pollo, cebolla, tomate"></textarea>
+        <h2>🧺 <span data-i18n="ingredients-title">Ingredientes disponibles</span></h2>
+        <textarea id="ingredientes" data-i18n-placeholder="ingredients-placeholder" placeholder="Ejemplo: arroz, pollo, cebolla, tomate"></textarea>
       </div>
 
       <div class="card">
-        <h2>⚙️ Preferencias</h2>
+        <h2>⚙️ <span data-i18n="preferences-title">Preferencias</span></h2>
         <div class="prefs">
-          <label for="dieta">Tipo de dieta</label>
+          <label for="dieta" data-i18n="diet-label">Tipo de dieta</label>
           <select id="dieta">
-            <option value="libre">Libre</option>
-            <option value="vegana">Vegana</option>
-            <option value="vegetariana">Vegetariana</option>
-            <option value="keto">Keto</option>
+            <option value="any" data-i18n="diet-any">Libre</option>
+            <option value="vegan" data-i18n="diet-vegan">Vegana</option>
+            <option value="vegetarian" data-i18n="diet-vegetarian">Vegetariana</option>
+            <option value="keto" data-i18n="diet-keto">Keto</option>
+            <option value="paleo" data-i18n="diet-paleo">Paleo</option>
+            <option value="pescatarian" data-i18n="diet-pescatarian">Pescatariana</option>
+            <option value="gluten-free" data-i18n="diet-gluten-free">Sin Gluten</option>
+            <option value="dairy-free" data-i18n="diet-dairy-free">Sin Lácteos</option>
+            <option value="low-carb" data-i18n="diet-low-carb">Baja en Carbohidratos</option>
+            <option value="high-protein" data-i18n="diet-high-protein">Alta en Proteínas</option>
           </select>
 
-          <label for="alergias">Alergias o restricciones</label>
-          <input type="text" id="alergias" placeholder="Ej: gluten, nueces" />
+          <label for="alergias" data-i18n="allergies-label">Alergias o restricciones</label>
+          <input type="text" id="alergias" data-i18n-placeholder="allergies-placeholder" placeholder="Ej: gluten, nueces" />
 
-          <label for="cocina">Tipo de cocina</label>
+          <label for="cocina" data-i18n="cuisine-label">Tipo de cocina</label>
           <select id="cocina">
-            <option value="internacional">Internacional</option>
-            <option value="mexicana">Mexicana</option>
-            <option value="italiana">Italiana</option>
-            <option value="asiatica">Asiática</option>
+            <option value="international" data-i18n="cuisine-international">Internacional</option>
+            <option value="mexican" data-i18n="cuisine-mexican">Mexicana</option>
+            <option value="italian" data-i18n="cuisine-italian">Italiana</option>
+            <option value="asian" data-i18n="cuisine-asian">Asiática</option>
+            <option value="mediterranean" data-i18n="cuisine-mediterranean">Mediterránea</option>
+            <option value="indian" data-i18n="cuisine-indian">India</option>
+            <option value="french" data-i18n="cuisine-french">Francesa</option>
+            <option value="spanish" data-i18n="cuisine-spanish">Española</option>
+            <option value="greek" data-i18n="cuisine-greek">Griega</option>
+            <option value="middle-eastern" data-i18n="cuisine-middle-eastern">Medio Oriente</option>
+            <option value="thai" data-i18n="cuisine-thai">Tailandesa</option>
+            <option value="japanese" data-i18n="cuisine-japanese">Japonesa</option>
+            <option value="chinese" data-i18n="cuisine-chinese">China</option>
+            <option value="korean" data-i18n="cuisine-korean">Coreana</option>
+            <option value="american" data-i18n="cuisine-american">Americana</option>
+            <option value="latin-american" data-i18n="cuisine-latin-american">Latinoamericana</option>
           </select>
 
-          <button id="planBtn">🍲 Planificar comidas</button>
+          <button id="planBtn" data-i18n="plan-button">🍲 Planificar comidas</button>
         </div>
       </div>
     </section>
 
     <section id="results" class="hidden">
-      <h2>🍽️ Recetas sugeridas</h2>
+      <div class="results-header">
+        <h2>🍽️ <span data-i18n="recipes-title">Recetas sugeridas</span></h2>
+      </div>
       <div id="recetas"></div>
 
-      <h2>🛒 Lista de compras</h2>
+      <div class="results-header">
+        <h2>🛒 <span data-i18n="shopping-list-title">Lista de compras</span></h2>
+      </div>
       <ul id="lista"></ul>
 
-      <button id="exportBtn">💾 Exportar lista</button>
+      <button id="exportBtn" data-i18n="export-button">💾 Exportar lista</button>
     </section>
 
     <footer>
-      <p>Desarrollado con ❤️ usando LangChain + Gemini</p>
+      <p data-i18n="footer-text">Desarrollado con ❤️ usando LangChain + Gemini</p>
     </footer>
   </main>
 
