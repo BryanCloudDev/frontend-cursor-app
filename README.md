@@ -8,11 +8,11 @@ The application integrates with a recipe generation API that provides personaliz
 
 ### API Configuration
 
-The API base URL is configured in `src/config/api.ts`. Update this file with the correct base URL for your environment:
+The API base URL is configured in `src/config/api.ts`. By default, it points to a local API server:
 
 ```typescript
 export const API_CONFIG = {
-  BASE_URL: 'https://api.example.com', // Replace with the actual base URL
+  BASE_URL: 'http://localhost:5007', // Local API server
 };
 ```
 
@@ -23,6 +23,25 @@ The API integration is implemented in `src/services/recipeService.ts`, which pro
 1. **API Response Interfaces**: TypeScript interfaces that define the structure of the API response.
 2. **getRecipeRecommendations**: A function that sends a POST request to the `/plan` endpoint with the user's input.
 3. **mapApiResponseToRecipes**: A function that transforms the API response into the format expected by the UI components.
+
+### API Request Format
+
+When calling the `/plan` endpoint, the application sends a JSON payload with the following structure:
+
+```json
+{
+  "available_ingredients": "pollo, arroz, cebolla, tomate, ajo, aceite de oliva",
+  "diet_type": "Libre",
+  "restrictions": "Ninguna",
+  "cuisine_type": "Internacional"
+}
+```
+
+The field names in the request must match exactly what the API expects:
+- `available_ingredients`: A comma-separated list of ingredients the user has
+- `diet_type`: The type of diet (e.g., "Libre", "Vegetariana")
+- `restrictions`: Any dietary restrictions or allergies
+- `cuisine_type`: The preferred cuisine type (e.g., "Internacional", "Italiana")
 
 ### Data Flow
 

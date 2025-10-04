@@ -51,7 +51,7 @@ export const getRecipeRecommendations = async (formData: FormData): Promise<ApiR
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        ingredients: formData.ingredients,
+        available_ingredients: formData.ingredients,
         diet_type: formData.dietType,
         restrictions: formData.restrictions,
         cuisine_type: formData.cuisineType,
