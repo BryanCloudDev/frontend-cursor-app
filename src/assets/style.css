@@ -1,0 +1,108 @@
+    /* 🎨 AI Food Planner — estilo minimalista */
+    :root {
+        --color-primary: #4CAF50;
+        --color-secondary: #2E7D32;
+        --bg: #f7f7f7;
+        --card-bg: #ffffff;
+        --text: #222;
+        --radius: 12px;
+    }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        margin: 0;
+        padding: 0;
+    }
+    
+    #app {
+        max-width: 960px;
+        margin: auto;
+        padding: 1.5rem;
+    }
+    
+    header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    h1 {
+        margin: 0;
+        color: var(--color-primary);
+        font-size: 2rem;
+    }
+    
+    h2 {
+        margin-top: 0;
+        color: var(--color-secondary);
+    }
+    
+    .card {
+        background: var(--card-bg);
+        padding: 1rem;
+        border-radius: var(--radius);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        margin-bottom: 1rem;
+    }
+    
+    textarea, input, select, button {
+        width: 100%;
+        padding: 0.6rem;
+        margin-top: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: var(--radius);
+        font-size: 1rem;
+    }
+    
+    textarea {
+        resize: vertical;
+        height: 100px;
+    }
+    
+    button {
+        background: var(--color-primary);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.2s ease;
+    }
+    
+    button:hover {
+        background: var(--color-secondary);
+    }
+    
+    #results {
+        margin-top: 2rem;
+    }
+    
+    .receta {
+        background: #fff;
+        border-radius: var(--radius);
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    .receta h3 {
+        margin: 0 0 0.5rem;
+        color: var(--color-primary);
+    }
+    
+    .receta ul {
+        margin: 0.5rem 0;
+        padding-left: 1.2rem;
+    }
+    
+    .hidden {
+        display: none;
+    }
+    
+    footer {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #555;
+        margin-top: 2rem;
+    }
+  
