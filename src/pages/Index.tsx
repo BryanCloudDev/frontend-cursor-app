@@ -24,7 +24,6 @@ const translations = {
 const Index = () => {
   const [language, setLanguage] = useState<"en" | "es">("en");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [shoppingList, setShoppingList] = useState<string[]>([]);
   const [tips, setTips] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -47,8 +46,7 @@ const Index = () => {
       const mappedRecipes = mapApiResponseToRecipes(apiResponse);
       setRecipes(mappedRecipes);
       
-      // Set shopping list and tips
-      setShoppingList(apiResponse.data.shopping_list || []);
+      // Set tips
       setTips(apiResponse.data.tips || []);
       
       toast({
@@ -121,9 +119,8 @@ const Index = () => {
             <section className="space-y-8">
               <RecipeDisplay recipes={recipes} language={language} />
               
-              {/* Shopping List and Tips */}
+              {/* Cooking Tips */}
               <RecipeExtras 
-                shoppingList={shoppingList} 
                 tips={tips} 
                 language={language} 
               />

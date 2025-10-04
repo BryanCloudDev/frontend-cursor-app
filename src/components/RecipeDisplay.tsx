@@ -9,7 +9,7 @@ interface RecipeDisplayProps {
 
 const translations = {
   en: {
-    yourRecipes: "Your Personalized Recipes",
+    yourRecipes: "Your Personalized Recipe",
     noRecipes: "No recipes yet. Fill out the form to get started!",
     prepTime: "Prep Time",
     servings: "Servings",
@@ -25,7 +25,7 @@ const translations = {
     tips: "Tips",
   },
   es: {
-    yourRecipes: "Tus Recetas Personalizadas",
+    yourRecipes: "Tu Receta Personalizada",
     noRecipes: "Aún no hay recetas. ¡Completa el formulario para comenzar!",
     prepTime: "Tiempo de Preparación",
     servings: "Porciones",
@@ -59,7 +59,7 @@ export const RecipeDisplay = ({ recipes, language }: RecipeDisplayProps) => {
       <h2 className="text-3xl font-bold text-center bg-gradient-warm bg-clip-text text-transparent">
         {t.yourRecipes}
       </h2>
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="max-w-2xl mx-auto">
         {recipes.map((recipe, index) => (
           <Card key={index} className="overflow-hidden hover:shadow-soft transition-smooth">
             <CardHeader className="bg-gradient-subtle">
