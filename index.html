@@ -1,13 +1,66 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>kitchen-cursor-app</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Food Planner 🍳</title>
+  <link rel="stylesheet" href="./assets/styles/style.css" />
+</head>
+<body>
+  <main id="app">
+    <header>
+      <h1>🥗 AI Food Planner</h1>
+      <p>Planifica tus comidas según lo que tienes en casa.</p>
+    </header>
+
+    <section id="inputs">
+      <div class="card">
+        <h2>🧺 Ingredientes disponibles</h2>
+        <textarea id="ingredientes" placeholder="Ejemplo: arroz, pollo, cebolla, tomate"></textarea>
+      </div>
+
+      <div class="card">
+        <h2>⚙️ Preferencias</h2>
+        <div class="prefs">
+          <label for="dieta">Tipo de dieta</label>
+          <select id="dieta">
+            <option value="libre">Libre</option>
+            <option value="vegana">Vegana</option>
+            <option value="vegetariana">Vegetariana</option>
+            <option value="keto">Keto</option>
+          </select>
+
+          <label for="alergias">Alergias o restricciones</label>
+          <input type="text" id="alergias" placeholder="Ej: gluten, nueces" />
+
+          <label for="cocina">Tipo de cocina</label>
+          <select id="cocina">
+            <option value="internacional">Internacional</option>
+            <option value="mexicana">Mexicana</option>
+            <option value="italiana">Italiana</option>
+            <option value="asiatica">Asiática</option>
+          </select>
+
+          <button id="planBtn">🍲 Planificar comidas</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="hidden">
+      <h2>🍽️ Recetas sugeridas</h2>
+      <div id="recetas"></div>
+
+      <h2>🛒 Lista de compras</h2>
+      <ul id="lista"></ul>
+
+      <button id="exportBtn">💾 Exportar lista</button>
+    </section>
+
+    <footer>
+      <p>Desarrollado con ❤️ usando LangChain + Gemini</p>
+    </footer>
+  </main>
+
+  <script src="./assets/js/app.js"></script>
+</body>
 </html>
