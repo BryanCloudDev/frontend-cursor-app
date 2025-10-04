@@ -1,73 +1,74 @@
-# Welcome to your Lovable project
+# Kitchen Cursor App
 
-## Project info
+A React application that helps users generate recipes based on ingredients they have, dietary preferences, and cuisine types.
 
-**URL**: https://lovable.dev/projects/e76715a8-6ba8-40ae-9924-a80dadba0307
+## API Integration
 
-## How can I edit this code?
+The application integrates with a recipe generation API that provides personalized recipe recommendations based on user input.
 
-There are several ways of editing your application.
+### API Configuration
 
-**Use Lovable**
+The API base URL is configured in `src/config/api.ts`. Update this file with the correct base URL for your environment:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e76715a8-6ba8-40ae-9924-a80dadba0307) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```typescript
+export const API_CONFIG = {
+  BASE_URL: 'https://api.example.com', // Replace with the actual base URL
+};
 ```
 
-**Edit a file directly in GitHub**
+### API Service
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The API integration is implemented in `src/services/recipeService.ts`, which provides:
 
-**Use GitHub Codespaces**
+1. **API Response Interfaces**: TypeScript interfaces that define the structure of the API response.
+2. **getRecipeRecommendations**: A function that sends a POST request to the `/plan` endpoint with the user's input.
+3. **mapApiResponseToRecipes**: A function that transforms the API response into the format expected by the UI components.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Data Flow
 
-## What technologies are used for this project?
+1. User submits the form with ingredients, diet type, restrictions, and cuisine type.
+2. The application calls the `getRecipeRecommendations` function with the form data.
+3. The API responds with recipe recommendations, shopping list, and cooking tips.
+4. The `mapApiResponseToRecipes` function transforms the API response into the format expected by the UI.
+5. The application displays the recipes, shopping list, and tips to the user.
 
-This project is built with:
+## Type Definitions
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The application uses TypeScript interfaces to ensure type safety:
 
-## How can I deploy this project?
+- `Recipe`: Defines the structure of a recipe object used by the UI components.
+- `Nutrition`: Defines the structure of nutrition information for a recipe.
+- `ApiResponse`: Defines the structure of the API response.
+- `ApiRecipe`: Defines the structure of a recipe object in the API response.
+- `ApiRecipeIngredient`: Defines the structure of an ingredient object in the API response.
+- `ApiRecipeNutrition`: Defines the structure of nutrition information in the API response.
 
-Simply open [Lovable](https://lovable.dev/projects/e76715a8-6ba8-40ae-9924-a80dadba0307) and click on Share -> Publish.
+## Components
 
-## Can I connect a custom domain to my Lovable project?
+- `RecipeForm`: Allows users to input ingredients, diet type, restrictions, and cuisine type.
+- `RecipeDisplay`: Displays the generated recipes with details like ingredients, instructions, and nutrition information.
+- `RecipeExtras`: Displays additional information like shopping list and cooking tips.
 
-Yes, you can!
+## Running the Application
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Install dependencies:
+   ```
+   npm install
+   ```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+2. Start the development server:
+   ```
+   npm run dev
+   ```
+
+3. Open your browser and navigate to the URL shown in the terminal (usually http://localhost:8080).
+
+## Building for Production
+
+To build the application for production:
+
+```
+npm run build
+```
+
+The build artifacts will be stored in the `dist/` directory.

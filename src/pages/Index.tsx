@@ -2,45 +2,11 @@ import { useState } from "react";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { RecipeForm, FormData } from "@/components/RecipeForm";
 import { RecipeDisplay } from "@/components/RecipeDisplay";
+import type { Recipe } from "@/types/recipe";
 import { RecipeExtras } from "@/components/RecipeExtras";
 import { useToast } from "@/hooks/use-toast";
 import heroImage from "@/assets/food-hero.jpg";
-
-// API response interface
-interface ApiRecipeIngredient {
-  amount: string;
-  available: boolean;
-  ingredient: string;
-}
-
-interface ApiRecipeNutrition {
-  calories: number;
-  carbs: string;
-  fat: string;
-  protein: string;
-}
-
-interface ApiRecipe {
-  description: string;
-  difficulty: string;
-  ingredients_needed: ApiRecipeIngredient[];
-  instructions: string[];
-  name: string;
-  nutrition: ApiRecipeNutrition;
-  prep_time: string;
-  servings: number;
-}
-
-interface ApiResponse {
-  data: {
-    recipes: ApiRecipe[];
-    shopping_list: string[];
-    tips: string[];
-  };
-  response_time: string;
-  source: string;
-  success: boolean;
-}
+import { getRecipeRecommendations, mapApiResponseToRecipes } from "@/services/recipeService";
 
 const translations = {
   en: {
@@ -57,7 +23,7 @@ const translations = {
 
 const Index = () => {
   const [language, setLanguage] = useState<"en" | "es">("en");
-  const [recipes, setRecipes] = useState<any[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [shoppingList, setShoppingList] = useState<string[]>([]);
   const [tips, setTips] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -69,132 +35,13 @@ const Index = () => {
     setLanguage((prev) => (prev === "en" ? "es" : "en"));
   };
 
-  // Function to map API response to the format expected by RecipeDisplay
-  const mapApiResponseToRecipes = (apiResponse: ApiResponse) => {
-    return apiResponse.data.recipes.map(recipe => {
-      // Format ingredients as strings with amount and ingredient name
-      const ingredients = recipe.ingredients_needed.map(item => 
-        `${item.amount} ${item.ingredient}${!item.available ? ' (not available)' : ''}`
-      );
-      
-      return {
-        name: recipe.name,
-        description: recipe.description,
-        prepTime: recipe.prep_time,
-        servings: recipe.servings.toString(),
-        ingredients: ingredients,
-        instructions: recipe.instructions,
-        // Additional properties that could be useful
-        difficulty: recipe.difficulty,
-        nutrition: recipe.nutrition,
-      };
-    });
-  };
 
   const handleFormSubmit = async (formData: FormData) => {
     setIsLoading(true);
     
     try {
-      // In a real implementation, this would be an API call
-      // For now, we'll use the sample response provided
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      
-      // Sample API response (in a real app, this would come from an API call)
-      const apiResponse: ApiResponse = {
-        "data": {
-          "recipes": [
-            {
-              "description": "Un plato vegetariano rápido y nutritivo, inspirado en los sabores mediterráneos de Italia. Perfecto para una comida ligera y sin gluten. Hemos omitido el pollo para cumplir con la dieta vegetariana.",
-              "difficulty": "Fácil",
-              "ingredients_needed": [
-                {
-                  "amount": "1 taza (200g)",
-                  "available": true,
-                  "ingredient": "Arroz (grano corto o redondo)"
-                },
-                {
-                  "amount": "1/2 unidad",
-                  "available": true,
-                  "ingredient": "Cebolla mediana"
-                },
-                {
-                  "amount": "2 unidades (o 400g de tomate triturado/cubos)",
-                  "available": true,
-                  "ingredient": "Tomates maduros"
-                },
-                {
-                  "amount": "2 unidades",
-                  "available": true,
-                  "ingredient": "Dientes de ajo"
-                },
-                {
-                  "amount": "2 cucharadas",
-                  "available": true,
-                  "ingredient": "Aceite de oliva virgen extra"
-                },
-                {
-                  "amount": "3 tazas (750ml)",
-                  "available": false,
-                  "ingredient": "Caldo de verduras"
-                },
-                {
-                  "amount": "Un puñado",
-                  "available": false,
-                  "ingredient": "Albahaca fresca"
-                },
-                {
-                  "amount": "Al gusto",
-                  "available": false,
-                  "ingredient": "Sal"
-                },
-                {
-                  "amount": "Al gusto",
-                  "available": false,
-                  "ingredient": "Pimienta negra molida"
-                },
-                {
-                  "amount": "2 cucharadas",
-                  "available": false,
-                  "ingredient": "Queso parmesano vegetariano (opcional)"
-                }
-              ],
-              "instructions": [
-                "Pica finamente la cebolla y los ajos. Si usas tomates frescos, córtalos en cubos pequeños.",
-                "En una sartén o cacerola mediana, calienta el aceite de oliva a fuego medio. Añade la cebolla y sofríe hasta que esté transparente, unos 5-7 minutos. Agrega el ajo picado y cocina por 1 minuto más, hasta que esté fragante.",
-                "Incorpora el arroz a la sartén y remueve durante 1-2 minutos para que se tueste ligeramente y se impregne del aceite y los sabores.",
-                "Añade los tomates picados (o triturados) y cocina por 2-3 minutos, removiendo ocasionalmente.",
-                "Vierte el caldo de verduras caliente. Lleva a ebullición, luego reduce el fuego a bajo, tapa la sartén y cocina durante 18-20 minutos, o hasta que el arroz haya absorbido la mayor parte del líquido y esté tierno.",
-                "Retira del fuego. Sazona con sal y pimienta al gusto. Incorpora la albahaca fresca picada. Si lo deseas, añade el queso parmesano vegetariano y remueve.",
-                "Sirve inmediatamente."
-              ],
-              "name": "Arroz a la Italiana con Tomate y Albahaca",
-              "nutrition": {
-                "calories": 400,
-                "carbs": "75g",
-                "fat": "17g",
-                "protein": "12g"
-              },
-              "prep_time": "10 min",
-              "servings": 2
-            }
-          ],
-          "shopping_list": [
-            "Caldo de verduras",
-            "Albahaca fresca",
-            "Sal",
-            "Pimienta negra molida",
-            "Queso parmesano vegetariano (opcional)"
-          ],
-          "tips": [
-            "Para una versión con pollo (si no sigues una dieta vegetariana), puedes añadir 200g de pechuga de pollo cortada en cubos y salteada al inicio con la cebolla.",
-            "Para una textura más cremosa, no laves el arroz antes de cocinarlo.",
-            "Ajusta la cantidad de caldo para lograr la consistencia de arroz deseada; si te gusta más seco, usa un poco menos, si lo prefieres más caldoso, añade un poco más al final."
-          ]
-        },
-        "response_time": "24.72s",
-        "source": "gemini",
-        "success": true
-      };
+      // Call the API to get recipe recommendations
+      const apiResponse = await getRecipeRecommendations(formData);
 
       // Map the API response to the format expected by RecipeDisplay
       const mappedRecipes = mapApiResponseToRecipes(apiResponse);

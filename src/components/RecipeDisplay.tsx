@@ -1,24 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, Users, UtensilsCrossed, Gauge, Utensils } from "lucide-react";
-
-interface Nutrition {
-  calories: number;
-  carbs: string;
-  fat: string;
-  protein: string;
-}
-
-interface Recipe {
-  name: string;
-  description: string;
-  prepTime?: string;
-  servings?: string;
-  ingredients?: string[];
-  instructions?: string[];
-  // Additional properties from API response
-  difficulty?: string;
-  nutrition?: Nutrition;
-}
+import type { Recipe } from "@/types/recipe";
 
 interface RecipeDisplayProps {
   recipes: Recipe[];
